@@ -31,6 +31,7 @@ public class profileActivity extends AppCompatActivity {
     EditText Name, Email, Phone;
     Button update, cPass;
     ProgressDialog progressDialog;
+    UserMangment userMangment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,9 @@ public class profileActivity extends AppCompatActivity {
         Email = findViewById(R.id.p_email);
         Phone = findViewById(R.id.p_phone);
 
+        userMangment = new UserMangment(this);
+        userMangment.checkLogin();
+
         progressDialog = new  ProgressDialog(this);
         progressDialog.setMessage("loading...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -48,10 +52,10 @@ public class profileActivity extends AppCompatActivity {
         update = findViewById(R.id.btnUpdate);
         cPass = findViewById(R.id.btnChangePassword);
 
-        Intent i = getIntent();
-        String mName = i.getStringExtra("name");
-        String mEmail = i.getStringExtra("email");
-        String mPhone = i.getStringExtra("phone");
+       HashMap<String, String> user = userMangment.userDatails();
+       final String mEmail = user.get(userMangment.EMAIL);
+        String mPhone = user.get(userMangment.PHONE);
+        String mName = user.get(userMangment.NAME);
 
         Name.setText(mName);
         Email.setText(mEmail);
@@ -160,6 +164,10 @@ public class profileActivity extends AppCompatActivity {
 
     public void massage(String massage){
         Toast.makeText(this,massage,Toast.LENGTH_SHORT).show();
+    }
+
+    public void logout(View view) {
+        userMangment.logout();
     }
 }
 

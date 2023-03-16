@@ -43,6 +43,15 @@
                 android:layout_weight=".5"
                 android:id="@+id/btnChangePassword"/>
         </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:onClick="logout"
+            android:gravity="center"
+            android:text="logout"/>
+
     </LinearLayout>
 
 </RelativeLayout>
