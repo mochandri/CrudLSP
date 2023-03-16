@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -77,9 +79,26 @@ public class MainActivity extends AppCompatActivity {
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
                                 String result = jsonObject.getString("status");
+
+                                JSONArray jsonArray = jsonObject.getJSONArray("data");
                                 if(result.equals("success")){
                                     progressDialog.dismiss();
-                                    massage("Login Berhasil");
+                                    for (int i= 0; 1 < jsonArray.length(); i++) {
+                                        JSONObject object = jsonArray.getJSONObject(i);
+                                        String name = object.getString("name");
+                                        String email = object.getString("email");
+                                        String phone = object.getString("phone");
+
+                                        Intent intent = new Intent(MainActivity.this, profileActivity.class);
+                                        intent.putExtra("name",name);
+                                        intent.putExtra("email",email);
+                                        intent.putExtra("phone",phone);
+                                        startActivity(intent);finish();
+
+                                        massage("Login Berhasil");
+
+                                    }
+
                                 }else {
                                     progressDialog.dismiss();
                                     massage("Login Gagal!!");
