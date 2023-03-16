@@ -114,6 +114,57 @@ public class profileActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                String name = Name.getText().toString().trim();
+                String email = Email.getText().toString().trim();
+                String phone = Phone.getText().toString().trim();
+                if (name.isEmpty() || email.isEmpty() || phone.isEmpty()) {
+                    massage("some feilds are empty!");
+                }else{
+                    progressDialog.setTitle("Updating....");
+                    progressDialog.show();
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.UPDATE_USER_INFO_URL,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    progressDialog.dismiss();
+                                    massage(response);
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            progressDialog.dismiss();
+                            massage(error.getMessage());
+                        }
+                    }){
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError{
+                            Map<String,String> updateParams = new HashMap<>();
+                            updateParams.put("email",email);
+                            updateParams.put("name",name);
+                            updateParams.put("phone",phone);
+                            updateParams.put("myemail",mEmail);
+                            return updateParams;
+
+                        }
+                    };
+                    RequestQueue queue = Volley.newRequestQueue(profileActivity.this);
+                    queue.add(stringRequest);
+                }
+
+            }
+        });
+    }
+
+    public void massage(String massage){
+        Toast.makeText(this,massage,Toast.LENGTH_SHORT).show();
+    }
+}
+
+
+
 
 //        cPass.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -177,9 +228,3 @@ public class profileActivity extends AppCompatActivity {
 //
 //            }
 //        });
-
-    }
-    public void massage(String massage){
-        Toast.makeText(this,massage,Toast.LENGTH_SHORT).show();
-    }
-}
