@@ -50,14 +50,14 @@ public class profileActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         String mName = i.getStringExtra("name");
-        final String mEmail = i.getStringExtra("email");
+        String mEmail = i.getStringExtra("email");
         String mPhone = i.getStringExtra("phone");
 
         Name.setText(mName);
         Email.setText(mEmail);
         Phone.setText(mPhone);
 
-        cPass.setOnClickListener(new  View.OnClickListener() {
+        cPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 View resetpasswordlayout = LayoutInflater.from(profileActivity.this).inflate(R.layout.change_password,null);
@@ -103,16 +103,6 @@ public class profileActivity extends AppCompatActivity {
                                     params.put("email", mEmail);
 
                                     return params;
-
-                                @Override
-                                protected Map<String, String> getParams() throws AuthFailureError {
-                                   Map<String,String> params = new HashMap<>();
-                                   params.put("oldpassword",oldpassword);
-                                   params.put("newpassword",newpassword);
-                                   params.put("confirmpassword",confirmpassword);
-                                   params.put("email",mEmail);
-                                   return params;
-
                                 }
                             };
                             RequestQueue queue = Volley.newRequestQueue(profileActivity.this);
