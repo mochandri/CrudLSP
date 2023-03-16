@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                                 JSONArray jsonArray = jsonObject.getJSONArray("data");
                                 if(result.equals("success")){
                                     progressDialog.dismiss();
-                                    for (int i= 0; 1 < jsonArray.length(); i++) {
+                                    for (int i= 0; i < jsonArray.length(); i++) {
                                         JSONObject object = jsonArray.getJSONObject(i);
                                         String name = object.getString("name");
                                         String email = object.getString("email");
