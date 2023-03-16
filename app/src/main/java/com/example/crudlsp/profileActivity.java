@@ -1,5 +1,6 @@
 package com.example.crudlsp;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,14 +50,14 @@ public class profileActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         String mName = i.getStringExtra("name");
-        String mEmail = i.getStringExtra("email");
+        final String mEmail = i.getStringExtra("email");
         String mPhone = i.getStringExtra("phone");
 
         Name.setText(mName);
         Email.setText(mEmail);
         Phone.setText(mPhone);
 
-        cPass.setOnClickListener(new View.OnClickListener() {
+        cPass.setOnClickListener(new  View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 View resetpasswordlayout= LayoutInflater.from(profileActivity.this).inflate(R.layout.change_password,null);
@@ -93,8 +94,9 @@ public class profileActivity extends AppCompatActivity {
                                     massage(error.getMessage());
                                 }
                             }){
+
                                 @Override
-                                public Map<String, String> getHeaders() throws AuthFailureError {
+                                protected Map<String, String> getParams() throws AuthFailureError {
                                    Map<String,String> params = new HashMap<>();
                                    params.put("oldpassword",oldpassword);
                                    params.put("newpassword",newpassword);
