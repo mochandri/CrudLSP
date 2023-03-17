@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                                         String email = object.getString("email");
                                         String phone = object.getString("phone");
 
-                                        userMangment.UserSessionManage(name,email,phone);
+                                        userMangment.UserSessonManage(name,email,phone);
 
                                         Intent intent = new Intent(MainActivity.this, profileActivity.class);
                                         startActivity(intent);finish();
