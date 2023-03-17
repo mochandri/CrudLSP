@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     EditText Email, Password;
     Button register, login;
     ProgressDialog progressDialog;
+    UserMangment userMangment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading..");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
+        userMangment = new UserMangment(this);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,11 +93,11 @@ public class MainActivity extends AppCompatActivity {
                                         String email = object.getString("email");
                                         String phone = object.getString("phone");
 
+                                        userMangment.UserSessionManage(name,email,phone);
+
                                         Intent intent = new Intent(MainActivity.this, profileActivity.class);
-                                        intent.putExtra("name",name);
-                                        intent.putExtra("email",email);
-                                        intent.putExtra("phone",phone);
                                         startActivity(intent);finish();
+                                        massage("User Login Successfully");
 
                                         massage("Login Berhasil");
 
@@ -181,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        builder.setNegativeButton("cancal", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
