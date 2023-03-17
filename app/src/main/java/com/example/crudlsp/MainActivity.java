@@ -47,11 +47,15 @@ public class MainActivity extends AppCompatActivity {
         Password = (EditText) findViewById(R.id.log_password);
         register = (Button) findViewById(R.id.btnregister);
         login = (Button) findViewById(R.id.btnlogin);
+
+        userMangment = new UserMangment(this);
+        userMangment.checkLogin();
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading..");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-        userMangment = new UserMangment(this);
+
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
